@@ -1,1 +1,1 @@
-nobase_pkginclude_HEADERS = ./gnss.hpp
+nobase_pkginclude_HEADERS = ./gnssxx.hpp

@@ -5,14 +5,14 @@ AM_CFLAGS	=
 AM_CXXFLAGS =
 AM_LDFLAGS	=
 
-lib_LTLIBRARIES = libgnss++.la
-libgnss___la_SOURCES = \
-					   ./src/gnss.cpp \
+lib_LTLIBRARIES = libgnssxx.la
+libgnssxx_la_SOURCES = \
+					   ./src/gnssxx.cpp \
 					   ./src/time/unixtime.cpp
 
 check_PROGRAMS	= test1
 test1_SOURCES	= ./tests/test1.cpp
-test1_LDADD		= libgnss++.la
+test1_LDADD		= libgnssxx.la
 
 SUBDIRS = src
 

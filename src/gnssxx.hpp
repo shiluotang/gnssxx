@@ -3,7 +3,7 @@
 
 #include <streambuf>
 
-namespace gnss {
+namespace gnssxx {
 }
 
 #endif // GNSSXX_GNSS_HPP_INCLUDED

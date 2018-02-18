@@ -3,5 +3,5 @@
 
 #include <cstddef>
 
-namespace gnss {
+namespace gnssxx {
 }

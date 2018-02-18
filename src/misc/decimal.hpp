@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <vector>
 
-namespace gnss {
+namespace gnssxx {
     namespace misc {
 
         /**

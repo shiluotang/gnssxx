@@ -1,6 +1,6 @@
 #include "decimal.hpp"
 
-namespace gnss {
+namespace gnssxx {
     namespace misc {
     }
 }
