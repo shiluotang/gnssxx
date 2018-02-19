@@ -7,8 +7,10 @@
 #include <string>
 #include <cmath>
 
-#include "unixtime.hpp"
 #include "../misc/decimal.hpp"
+#include "../misc/utils.hpp"
+
+#include "unixtime.hpp"
 
 namespace {
     static const double UNIX_EPOCH_JULIAN_DATE = 2440587.5;
@@ -16,17 +18,11 @@ namespace {
 
 namespace gnssxx {
 
-    unixtime::unixtime(std::time_t t) :_M_time(t), _M_fraction(0) { }
+    unixtime::unixtime(std::time_t t) :_M_seconds(t) {}
 
-    unixtime::unixtime(double t)
-        : _M_time(static_cast<time_t>(t)),
-        _M_fraction(t - static_cast<time_t>(t)) {
-    }
+    unixtime::unixtime(double t) : _M_seconds(t) {}
 
-    unixtime::unixtime(std::time_t t, double fraction)
-        : _M_time(t + static_cast<time_t>(fraction)),
-        _M_fraction(fraction - static_cast<time_t>(fraction)) {
-    }
+    unixtime::unixtime(std::time_t t, double fraction) : _M_seconds(t + fraction) { }
 
     unixtime::~unixtime() {}
 
@@ -37,13 +33,12 @@ namespace gnssxx {
         return unixtime(time);
     }
 
-    unixtime unixtime::fromJD(double jd) {
+    unixtime unixtime::from_jd(double jd) {
         return unixtime((jd - UNIX_EPOCH_JULIAN_DATE) * 86400);
     }
 
     unixtime& unixtime::operator = (unixtime const &other) {
-        this->_M_time = other._M_time;
-        this->_M_fraction = other._M_fraction;
+        this->_M_seconds = other._M_seconds;
         return *this;
     }
 }

@@ -2,6 +2,7 @@
 #define GNSSXX_TIME_UNIXTIME_HPP_INCLUDED
 
 #include <ctime>
+#include <ostream>
 
 namespace gnssxx {
 
@@ -19,18 +20,19 @@ namespace gnssxx {
 
             virtual ~unixtime();
 
-            operator time_t() const { return _M_time; }
-            time_t integral() const { return _M_time; }
-            double fraction() const { return _M_fraction; }
-            double toJD() const;
+            operator time_t() const { return static_cast<std::time_t>(_M_seconds); }
+            operator double() const { return _M_seconds; }
+
+            std::time_t integral() const { return static_cast<std::time_t>(_M_seconds); }
+            double fraction() const { return _M_seconds - static_cast<std::time_t>(_M_seconds); }
+            double to_jd() const;
 
             unixtime& operator = (unixtime const&);
 
             static unixtime now();
-            static unixtime fromJD(double);
+            static unixtime from_jd(double);
         private:
-            std::time_t _M_time;
-            double _M_fraction;
+            double _M_seconds;
     };
 }
 

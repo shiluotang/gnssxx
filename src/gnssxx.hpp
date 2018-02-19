@@ -1,9 +1,13 @@
-#ifndef GNSSXX_GNSS_HPP_INCLUDED
-#define GNSSXX_GNSS_HPP_INCLUDED
+#ifndef GNSSXX_GNSSXX_HPP_INCLUDED
+#define GNSSXX_GNSSXX_HPP_INCLUDED
 
 #include <streambuf>
+
+#include "misc/decimal.hpp"
+#include "time/unixtime.hpp"
+#include "time/jd.hpp"
 
 namespace gnssxx {
 }
 
-#endif // GNSSXX_GNSS_HPP_INCLUDED
+#endif // GNSSXX_GNSSXX_HPP_INCLUDED

@@ -1,8 +1,11 @@
 #include <cstdlib>
+#include <iostream>
+#include <sstream>
 
-#include "../src/gnss.hpp"
+#include "../src/misc/utils.hpp"
+#include "../src/gnssxx.hpp"
 
-namespace gnss {
+namespace gnssxx {
     template <typename CharT,
              typename Traits = std::char_traits<CharT>,
              typename Alloc = std::allocator<CharT> >
@@ -25,12 +28,15 @@ namespace gnss {
 
     typedef basic_simplebuf<char> simplebuf;
     typedef basic_simplebuf<wchar_t> wsimplebuf;
+
+    class epoch_time {
+    };
 }
 
 int main(int argc, char* argv[]) {
     using namespace std;
-    using namespace gnss;
+    using namespace gnssxx;
 
-    // ostream oss(new ::gnss::simplebuf);
+    cout << static_cast<time_t>(unixtime::now()) << endl;
     return EXIT_SUCCESS;
 }
