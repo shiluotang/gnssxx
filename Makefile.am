@@ -7,8 +7,9 @@ AM_LDFLAGS	=
 
 lib_LTLIBRARIES = libgnssxx.la
 libgnssxx_la_SOURCES = \
-					   ./src/gnssxx.cpp \
-					   ./src/time/unixtime.cpp
+./src/gnssxx.cpp \
+./src/time/timezone.cpp \
+./src/time/unixtime.cpp
 
 check_PROGRAMS	= test1
 test1_SOURCES	= ./tests/test1.cpp

@@ -51,12 +51,20 @@ namespace gnssxx {
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) try {
     using namespace std;
     using namespace gnssxx;
 
     cout << static_cast<time_t>(unixtime::now()) << endl;
     cout << time::utc() << endl;
     cout << time::tai(3) << endl;
+
+    cout << time::timezone::offset() << endl;
     return EXIT_SUCCESS;
+} catch (std::exception const &e) {
+    std::cerr << "[C++ exception] " << e.what() << std::endl;
+    return EXIT_FAILURE;
+} catch (...) {
+    std::cerr << "[C++ exception] " << "<UNKNOWN CAUSE>" << std::endl;
+    return EXIT_FAILURE;
 }
