@@ -9,7 +9,7 @@
 #include "time/unixtime.hpp"
 #include "time/timezone.hpp"
 #include "time/utc.hpp"
-#include "time/gps.hpp"
+#include "time/gpst.hpp"
 #include "time/tai.hpp"
 #include "time/jd.hpp"
 

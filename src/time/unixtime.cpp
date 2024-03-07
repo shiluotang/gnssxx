@@ -19,6 +19,7 @@ static const double UNIX_EPOCH_JULIAN_DATE = 2440587.5;
 } // namespace
 
 namespace gnssxx {
+namespace time {
 
 unixtime::unixtime(std::time_t t) :_M_seconds(t) {}
 
@@ -44,4 +45,5 @@ unixtime& unixtime::operator = (unixtime const &other) {
     return *this;
 }
 
+} // namespace time
 } // namespace gnssxx
