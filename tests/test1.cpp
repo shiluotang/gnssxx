@@ -3,7 +3,7 @@
 #include <sstream>
 #include <ctime>
 
-#include "../src/gnssxx.hpp"
+#include "gnssxx.hpp"
 
 namespace gnssxx {
     template <

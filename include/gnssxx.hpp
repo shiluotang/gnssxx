@@ -15,6 +15,6 @@
 
 namespace gnssxx {
 
-}
+} // namespace gnssxx
 
 #endif // GNSSXX_GNSSXX_HPP_INCLUDED

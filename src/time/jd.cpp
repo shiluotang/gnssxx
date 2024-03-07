@@ -4,4 +4,6 @@
 #include <cstddef>
 
 namespace gnssxx {
-}
+} // namespace gnssxx
+
+#endif // GNSSXX_TIME_UNIXTIME_HPP_INCLUDED
