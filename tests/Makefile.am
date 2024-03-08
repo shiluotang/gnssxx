@@ -11,4 +11,7 @@ check_PROGRAMS =
 check_PROGRAMS += test1
 test1_SOURCES = ./test1.cpp
 
+check_PROGRAMS += test_read_rinex
+test_read_rinex_SOURCES = test_read_rinex.cc
+
 TESTS = $(check_PROGRAMS)
