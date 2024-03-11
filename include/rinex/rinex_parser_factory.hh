@@ -17,7 +17,9 @@ class rinex_parser_factory {
         static std::shared_ptr<rinex_parser_factory> instance();
 
         parser_ptr for_version(int major, int minor);
+        parser_ptr get_parser(int major, int minor, char type);
         void set_parser(int major, int minor, parser_ptr parser);
+        void set_parser(int major, int minor, char type, parser_ptr parser);
     protected:
     private:
         map_type _M_parsers;

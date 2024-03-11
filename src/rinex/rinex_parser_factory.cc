@@ -32,10 +32,23 @@ rinex_parser_factory::for_version(int major, int minor) {
     return NULL;
 }
 
-void rinex_parser_factory::set_parser(int major, int minor,
+rinex_parser_factory::parser_ptr
+rinex_parser_factory::get_parser(int major, int minor, char type) {
+    // TODO not implemented
+    return NULL;
+}
+
+void rinex_parser_factory::set_parser(
+        int major, int minor,
         std::shared_ptr<rinex_parser> parser) {
     _M_parsers[rinex_file_version(major, minor)] = parser;
 }
+
+void rinex_parser_factory::set_parser(
+        int major, int minor, char type, parser_ptr parser) {
+    // TODO not implemented
+}
+
 
 } // namespace rinex
 } // namespace gnssxx
