@@ -11,8 +11,8 @@ AM_LDFLAGS += ${GTEST_MAIN_LIBS}
 
 check_PROGRAMS =
 
-check_PROGRAMS += test1
-test1_SOURCES = ./test1.cpp
+check_PROGRAMS += test_timezone
+test_timezone_SOURCES = test_timezone.cc
 
 check_PROGRAMS += test_read_rinex
 test_read_rinex_SOURCES = test_read_rinex.cc
