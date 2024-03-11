@@ -14,11 +14,13 @@ AM_INIT_AUTOMAKE([foreign subdir-objects -Wall -Werror])
 
 # Checks for programs.
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+AX_CXX_COMPILE_STDCXX([14], [ext], [mandatory])
 AC_PROG_CXX
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 LT_INIT
 
 # Checks for libraries.
+PKG_CHECK_MODULES([GTEST_MAIN], [gtest_main])
 
 # Checks for header files.
 

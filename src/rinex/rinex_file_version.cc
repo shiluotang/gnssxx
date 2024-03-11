@@ -11,6 +11,12 @@ rinex_file_version::rinex_file_version(int major, int minor)
 {
 }
 
+rinex_file_version::rinex_file_version()
+    : _M_major(0)
+    , _M_minor(0)
+{
+}
+
 int rinex_file_version::get_major() const {
     return _M_major;
 }

@@ -10,6 +10,7 @@ namespace rinex {
 class rinex_file_version {
     public:
         rinex_file_version(int major, int minor);
+        rinex_file_version();
 
         int get_major() const;
         int get_minor() const;
