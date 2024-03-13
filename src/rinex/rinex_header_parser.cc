@@ -1,7 +1,13 @@
+#include <cstdlib>
+#include <cstdio>
+#include <string>
+#include <vector>
+
 #include "rinex/rinex_file_version.hh"
 #include "rinex/rinex_file_type.hh"
 #include "rinex/rinex_file_satsys.hh"
 #include "rinex/rinex_header_parser_factory.hh"
+#include "rinex/rinex_file_header.hh"
 
 #include "rinex/rinex_header_parser.hh"
 
@@ -45,10 +51,45 @@ class header_first_line_parser
         }
 };
 
+class pgm_runby_date_parser
+    : public virtual rinex_header_parser {
+    public:
+        virtual bool parse(
+                std::string const &content,
+                rinex_file_header &header) {
+            std::vector<char> pbuf(20 + 1);
+            std::vector<char> rbuf(20 + 1);
+            std::vector<char> dbuf(20 + 1);
+            int n = std::sscanf(
+                    content.c_str(),
+                    "%20c%20c%20c",
+                    &pbuf[0],
+                    &rbuf[0],
+                    &dbuf[0]);
+            if (n != 3)
+                return false;
+            header.set_pgm(&pbuf[0]);
+            header.set_run_by(&rbuf[0]);
+            header.set_date(&dbuf[0]);
+            return true;
+        }
+    protected:
+    private:
+};
+
 void rinex_header_parser::register_parsers() {
-    rinex_header_parser_factory::instance()->set_parser(
-            "RINEX VERSION / TYPE",
-            std::make_shared<header_first_line_parser>());
+#ifdef REGISTER_PARSER
+#   undef REGISTER_PARSER
+#endif
+#define REGISTER_PARSER(name, type) \
+    do { \
+    rinex_header_parser_factory::instance()->set_parser( \
+            name, \
+            std::make_shared<type>()); \
+    } while (false)
+    REGISTER_PARSER("RINEX VERSION / TYPE", header_first_line_parser);
+    REGISTER_PARSER("PGM / RUN BY / DATE", pgm_runby_date_parser);
+#undef REGISTER_PARSER
 }
 
 } // namespace rinex

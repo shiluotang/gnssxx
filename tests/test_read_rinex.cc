@@ -28,9 +28,17 @@ TEST(rinex_test, test_parse_first_line) {
     ASSERT_NE(parser, nullptr);
     rinex_file_header header;
     ASSERT_TRUE(parser->parse(line, header));
-    std::cout << header.get_version() << std::endl;
-    std::cout << header.get_type() << std::endl;
-    std::cout << header.get_satsys() << std::endl;
+    std::cout << "RINEX VERSION = " << header.get_version() << std::endl;
+    std::cout << "RINEX TYPE    = " << header.get_type() << std::endl;
+    std::cout << "RINEX SAT SYS = " << header.get_satsys() << std::endl;
+    line = "NetR9 5.56          Receiver Operator   28-FEB-24 00:00:00  PGM / RUN BY / DATE ";
+    parser = rinex_header_parser_factory::instance()
+        ->get_parser("PGM / RUN BY / DATE");
+    ASSERT_NE(parser, nullptr);
+    ASSERT_TRUE(parser->parse(line, header));
+    std::cout << "PGM    = [" << header.get_pgm() << "]" << std::endl;
+    std::cout << "RUN BY = [" << header.get_run_by() << "]" << std::endl;
+    std::cout << "DATE   = [" << header.get_date() << "]" << std::endl;
 }
 
 TEST(rinex_test, test_parser_factory) {
