@@ -17,4 +17,7 @@ test_timezone_SOURCES = test_timezone.cc
 check_PROGRAMS += test_read_rinex
 test_read_rinex_SOURCES = test_read_rinex.cc
 
+check_PROGRAMS += test_parse_dfloat
+test_parse_dfloat_SOURCES = test_parse_dfloat.cc
+
 TESTS = $(check_PROGRAMS)
