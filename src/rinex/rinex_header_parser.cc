@@ -89,7 +89,7 @@ class ion_alpha_parser
                 std::string const &content,
                 rinex_file_header &header) {
             double alpha[4];
-            // TODO modify scientific notation any "D" => "E"
+            // modify scientific notation any "D" => "E"
             std::string filtered_content = content;
             std::transform(
                     filtered_content.begin(),
@@ -119,6 +119,48 @@ class ion_alpha_parser
     private:
 };
 
+class ion_beta_parser
+    : public virtual rinex_header_parser {
+    public:
+        struct double_float_notation_filter {
+            char operator()(char c) {
+                return ::toupper(c) == 'D' ? 'E' : c;
+            }
+        };
+        virtual bool parse(
+                std::string const &content,
+                rinex_file_header &header) {
+            double beta[4];
+            // modify scientific notation any "D" => "E"
+            std::string filtered_content = content;
+            std::transform(
+                    filtered_content.begin(),
+                    filtered_content.end(),
+                    filtered_content.begin(),
+                    double_float_notation_filter());
+            int n = std::sscanf(
+                    &filtered_content[0],
+                    "%*2c%12lf%12lf%12lf%12lf",
+                    &beta[0],
+                    &beta[1],
+                    &beta[2],
+                    &beta[3]);
+            if (n != 4)
+                return false;
+            ion iono;
+            if (header.has_ion())
+                iono = header.get_ion();
+            iono.set_beta(0, beta[0]);
+            iono.set_beta(1, beta[1]);
+            iono.set_beta(2, beta[2]);
+            iono.set_beta(3, beta[3]);
+            header.set_ion(iono);
+            return true;
+        }
+    protected:
+    private:
+};
+
 void rinex_header_parser::register_parsers() {
 #ifdef REGISTER_PARSER
 #   undef REGISTER_PARSER
@@ -131,6 +173,8 @@ void rinex_header_parser::register_parsers() {
     } while (false)
     REGISTER_PARSER("RINEX VERSION / TYPE", rinex_version_type_parser);
     REGISTER_PARSER("PGM / RUN BY / DATE", pgm_runby_date_parser);
+    REGISTER_PARSER("ION ALPHA", ion_alpha_parser);
+    REGISTER_PARSER("ION BETA", ion_beta_parser);
 #undef REGISTER_PARSER
 }
 
