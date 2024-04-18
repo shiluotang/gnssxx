@@ -162,6 +162,24 @@ class ion_beta_parser
     private:
 };
 
+class leap_seconds_parser
+    : public virtual rinex_header_parser {
+    public:
+        virtual bool parse(
+                std::string const &content,
+                rinex_file_header &header) {
+            int cur = 0;
+            int n = std::sscanf(content.c_str(), "%6d",
+                    &cur);
+            if (n < 1)
+                return false;
+            header.set_leap_seconds(cur);
+            return true;
+        }
+    protected:
+    private:
+};
+
 void rinex_header_parser::register_parsers() {
 #ifdef REGISTER_PARSER
 #   undef REGISTER_PARSER
@@ -176,6 +194,7 @@ void rinex_header_parser::register_parsers() {
     REGISTER_PARSER("PGM / RUN BY / DATE", pgm_runby_date_parser);
     REGISTER_PARSER("ION ALPHA", ion_alpha_parser);
     REGISTER_PARSER("ION BETA", ion_beta_parser);
+    REGISTER_PARSER("LEAP SECONDS", leap_seconds_parser);
 #undef REGISTER_PARSER
 }
 
