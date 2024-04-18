@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "rinex/rinex_file_version.hh"
 #include "rinex/rinex_file_type.hh"
