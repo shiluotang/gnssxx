@@ -169,7 +169,9 @@ class leap_seconds_parser
                 std::string const &content,
                 rinex_file_header &header) {
             int cur = 0;
-            int n = std::sscanf(content.c_str(), "%6d",
+            int n = std::sscanf(
+                    content.c_str(),
+                    "%6d",
                     &cur);
             if (n < 1)
                 return false;

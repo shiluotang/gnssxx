@@ -11,11 +11,6 @@ class rinex_parser {
     public:
         rinex_parser();
         virtual ~rinex_parser();
-        virtual bool parse_version_type(
-                std::string const &line,
-                rinex_file_version &ver,
-                rinex_file_type &type,
-                rinex_file_satsys &sys);
         virtual bool is_end_of_header(std::string const &line) const;
         virtual bool is_comment(std::string const &line) const;
 
