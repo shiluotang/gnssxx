@@ -10,6 +10,7 @@ noinst_LTLIBRARIES = libgnssxx.la
 libgnssxx_la_SOURCES = \
 gnssxx.cc \
 misc/decimal.cc \
+misc/bytes.cc \
 rinex/ion.cc \
 rinex/rinex_file_header.cc \
 rinex/rinex_file_satsys.cc \

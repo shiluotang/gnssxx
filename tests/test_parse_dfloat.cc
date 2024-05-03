@@ -17,6 +17,7 @@ std::string replace_all(
     return s;
 }
 
+[[maybe_unused]]
 std::string replace_all(
         std::string const &s,
         std::string const &orig,

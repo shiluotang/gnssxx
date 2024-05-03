@@ -47,6 +47,12 @@ struct basic_ios_guarder {
 typedef basic_ios_guarder<char> ios_guarder;
 typedef basic_ios_guarder<wchar_t> wios_guarder;
 
+template <typename DestType, typename SourceType>
+DestType pointer_cast(SourceType src) {
+    return *static_cast<DestType*>(
+            static_cast<void*>(&src));
+}
+
 } // namespace misc
 } // namespace gnssxx
 

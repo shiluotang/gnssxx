@@ -1,12 +1,17 @@
 #include <cstdlib>
+#include <cstring>
 #include <cstdio>
 #include <ctime>
+#include <cctype>
 
 #include <map>
 #include <iomanip>
 #include <sstream>
 #include <ostream>
 #include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <vector>
 
 #include "gnssxx.hpp"
 #include "rinex/rinex_parser_factory.hh"
@@ -54,3 +59,38 @@ TEST(rinex_test, test_parser_factory) {
         ->get_parser(ver, type);
     ASSERT_EQ(ptr, nullptr);
 }
+
+TEST(rinex_test, test_read_local_rinex_file) {
+    namespace fs = std::filesystem;
+    fs::path current_path = fs::current_path();
+    current_path /= "..";
+    current_path /= "..";
+    current_path /= "tests";
+    current_path /= "data";
+    current_path /= "zimm0590.24n";
+    std::string filename = current_path.string();
+    std::cout << "filename = " << filename << std::endl;
+    if (!fs::exists(filename))
+        GTEST_SKIP();
+    std::string line;
+    // windows \r\n
+    // linux   \n
+    // mac     \r
+    std::ifstream infile(
+            filename.c_str(),
+            std::ios_base::binary | std::ios_base::in);
+    if (!infile)
+        throw std::runtime_error("failed to open file " + filename);
+    std::vector<char> buffer(80 + 1, 0);
+    std::string formatted_line;
+    for ( ; std::getline(infile, line, '\n'); ) {
+        std::fill(buffer.begin(), buffer.end(), ' ');
+        buffer[buffer.size() - 1] = 0;
+        line.copy(&buffer[0], buffer.size() - 1, 0);
+        formatted_line = &buffer[0];
+        if (formatted_line.substr(60) == "END OF HEADER") {
+        }
+        std::cout << formatted_line << std::endl;
+    }
+}
+

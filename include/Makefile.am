@@ -1,5 +1,6 @@
 nobase_pkginclude_HEADERS = \
 gnssxx.hpp \
+misc/bytes.hpp \
 misc/decimal.hpp \
 misc/utils.hpp \
 time/gpst.hpp \
