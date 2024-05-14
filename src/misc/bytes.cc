@@ -17,7 +17,6 @@ void bytes::print(std::ostream& out) const {
     uint8_t const *p = static_cast<uint8_t const*>(&_M_data[0]);
     gnssxx::misc::ios_guarder guarder(out);
     for (int i = 0, n = _M_data.size(); i < n; ++i) {
-        // TODO FIXME restore previous status of ostream
         out
             << std::setw(2)
             << std::setfill('0')

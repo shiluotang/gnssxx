@@ -60,8 +60,85 @@ TEST(rinex_test, test_parser_factory) {
     ASSERT_EQ(ptr, nullptr);
 }
 
+/**
+ * physical parsing context.
+ */
+class rinex_parse_context {
+    public:
+        rinex_parse_context(std::istream &in)
+            : _M_in(in)
+            , _M_lineno(0)
+            , _M_section_type(RINEX_HEADER)
+        {
+        }
+
+        enum section_type {
+            RINEX_HEADER,
+            RINEX_BODY,
+        };
+
+        int get_lineno() const {
+            return _M_lineno;
+        }
+        void set_lineno(int value) {
+            _M_lineno = value;
+        }
+
+        bool is_header() const {
+            return _M_section_type == RINEX_HEADER;
+        }
+
+        section_type get_section_type() const {
+            return _M_section_type;
+        }
+
+        void set_section_type(section_type value) {
+            _M_section_type = value;
+        }
+
+        bool next_line(std::string &line,
+                bool padding = false) {
+            if (!_M_in)
+                return false;
+            std::getline(_M_in, line, '\n');
+            if (padding) {
+                std::vector<char> buffer(80 + 1);
+                std::fill(buffer.begin(), buffer.end(), ' ');
+                buffer[buffer.size() - 1] = 0;
+                line.copy(&buffer[0], buffer.size() - 1, 0);
+                line = &buffer[0];
+            }
+            ++_M_lineno;
+            return !!_M_in;
+        }
+    protected:
+    private:
+        std::istream &_M_in;
+        int _M_lineno;
+        section_type _M_section_type;
+};
+
+#define ENUM_OS_BEGIN(type) \
+    std::ostream& operator<<(std::ostream& os, type const &value) { \
+        char const *p = "UNKNOWN"; \
+        switch (value) {
+#define ENUM_OS_ITEM(name) \
+            case name: p = #name; break;
+#define ENUM_OS_END() \
+            default: break; \
+        } \
+       return os << p << "(" << static_cast<int>(value) << ")"; \
+    }
+
+ENUM_OS_BEGIN(rinex_parse_context::section_type)
+ENUM_OS_ITEM(rinex_parse_context::RINEX_HEADER)
+ENUM_OS_ITEM(rinex_parse_context::RINEX_BODY)
+ENUM_OS_END()
+
 TEST(rinex_test, test_read_local_rinex_file) {
     namespace fs = std::filesystem;
+    std::cout << "stdout.fill() = '" << std::cout.fill() << "'" << std::endl;
+    std::cout << "stdout.width() = " << std::cout.width() << std::endl;
     fs::path current_path = fs::current_path();
     current_path /= "..";
     current_path /= "..";
@@ -81,16 +158,16 @@ TEST(rinex_test, test_read_local_rinex_file) {
             std::ios_base::binary | std::ios_base::in);
     if (!infile)
         throw std::runtime_error("failed to open file " + filename);
-    std::vector<char> buffer(80 + 1, 0);
     std::string formatted_line;
-    for ( ; std::getline(infile, line, '\n'); ) {
-        std::fill(buffer.begin(), buffer.end(), ' ');
-        buffer[buffer.size() - 1] = 0;
-        line.copy(&buffer[0], buffer.size() - 1, 0);
-        formatted_line = &buffer[0];
+    rinex_parse_context ctx(infile);
+    for ( ; ctx.next_line(formatted_line, true); ) {
         if (formatted_line.substr(60) == "END OF HEADER") {
         }
-        std::cout << formatted_line << std::endl;
+        std::cout
+            << std::setw(4) << ctx.get_lineno()
+            << " " << ctx.get_section_type()
+            << formatted_line
+            << std::endl;
     }
 }
 

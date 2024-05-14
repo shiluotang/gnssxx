@@ -20,4 +20,7 @@ test_read_rinex_SOURCES = test_read_rinex.cc
 check_PROGRAMS += test_parse_dfloat
 test_parse_dfloat_SOURCES = test_parse_dfloat.cc
 
+check_PROGRAMS += test_layout
+test_layout_SOURCES = test_layout.cc
+
 TESTS = $(check_PROGRAMS)
