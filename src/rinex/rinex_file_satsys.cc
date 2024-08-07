@@ -1,11 +1,12 @@
 #include <ostream>
 
-#include "rinex//rinex_file_satsys.hh"
+#include "misc/utils.hh"
+#include "rinex/rinex_file_satsys.hh"
 
 namespace gnssxx {
 namespace rinex {
 
-rinex_file_satsys from_file_satsys_indicator(char c) {
+rinex_file_satsys rinex_file_satsys_of_indicator(char c) {
     switch (c) {
         case ' ' :
         case 'G' : return GPS;
@@ -21,22 +22,24 @@ rinex_file_satsys from_file_satsys_indicator(char c) {
     return MIXED;
 }
 
-std::ostream& operator<<(std::ostream &out, rinex_file_satsys const &value) {
-    char const *name = "UNKNOWN";
-    switch (value) {
-        case GPS: name = "GPS"; break;
-        case GLONASS: name = "GLONASS"; break;
-        case GALILEO: name = "GALILEO"; break;
-        case QZSS: name = "QZSS"; break;
-        case BDS: name = "BDS"; break;
-        case SBAS: name = "SBAS"; break;
-        case TRANSIT: name = "TRANSIT"; break;
-        case MIXED: name = "MIXED"; break;
-        default: break;
-    }
-    out << name << "(" << static_cast<int>(value) << ")";
-    return out;
+char rinex_file_satsys_to_indicator(rinex_file_satsys satsys) {
+    static char INDICATORS[] = { "GREJCSTM" };
+    char c = 'M';
+    if (satsys < std::char_traits<char>::length(INDICATORS))
+        c = INDICATORS[satsys];
+    return c;
 }
+
+ENUM_OS_BEGIN(rinex_file_satsys);
+ENUM_OS_ITEM(GPS);
+ENUM_OS_ITEM(GLONASS);
+ENUM_OS_ITEM(GALILEO);
+ENUM_OS_ITEM(QZSS);
+ENUM_OS_ITEM(BDS);
+ENUM_OS_ITEM(SBAS);
+ENUM_OS_ITEM(TRANSIT);
+ENUM_OS_ITEM(MIXED);
+ENUM_OS_END(rinex_file_satsys);
 
 } // namespace rinex
 } // namespace gnssxx

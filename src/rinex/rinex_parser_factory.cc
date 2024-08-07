@@ -1,3 +1,7 @@
+#include <memory>
+
+#include "rinex/rinex_file_type.hh"
+#include "rinex/rinex_file_version.hh"
 #include "rinex/rinex_parser_factory.hh"
 
 namespace gnssxx {

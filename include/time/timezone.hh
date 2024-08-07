@@ -1,5 +1,5 @@
-#ifndef GNSSXX_TIME_TIMEZONE_HPP_INCLUDED
-#define GNSSXX_TIME_TIMEZONE_HPP_INCLUDED
+#ifndef GNSSXX_TIME_TIMEZONE_HH_INCLUDED
+#define GNSSXX_TIME_TIMEZONE_HH_INCLUDED
 
 namespace gnssxx {
 namespace time {
@@ -14,4 +14,4 @@ public:
 } // namespace time
 } // namespace gnssxx
 
-#endif // GNSSXX_TIME_TIMEZONE_HPP_INCLUDED
+#endif // GNSSXX_TIME_TIMEZONE_HH_INCLUDED

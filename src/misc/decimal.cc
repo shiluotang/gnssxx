@@ -2,9 +2,8 @@
 #include <string>
 #include <sstream>
 #include <istream>
-#include <string_view>
 
-#include "misc/decimal.hpp"
+#include "misc/decimal.hh"
 
 namespace gnssxx {
 namespace misc {

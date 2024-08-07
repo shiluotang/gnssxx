@@ -4,23 +4,18 @@ AM_CXXFLAGS =
 AM_LDFLAGS	=
 
 AM_CPPFLAGS += -I@top_srcdir@/include
-AM_LDFLAGS += @top_builddir@/src/libgnssxx.la
+AM_LDFLAGS  += @top_builddir@/src/libgnssxx.la
 
 AM_CPPFLAGS += ${GTEST_MAIN_CFLAGS}
-AM_LDFLAGS += ${GTEST_MAIN_LIBS}
+AM_LDFLAGS  += ${GTEST_MAIN_LIBS}
 
 check_PROGRAMS =
 
-check_PROGRAMS += test_timezone
-test_timezone_SOURCES = test_timezone.cc
+check_PROGRAMS += test_arch
+test_arch_SOURCES = test_arch.cc
 
-check_PROGRAMS += test_read_rinex
-test_read_rinex_SOURCES = test_read_rinex.cc
-
-check_PROGRAMS += test_parse_dfloat
-test_parse_dfloat_SOURCES = test_parse_dfloat.cc
-
-check_PROGRAMS += test_layout
-test_layout_SOURCES = test_layout.cc
+check_PROGRAMS += test_moveable
+test_moveable_CXXFLAGS = -std=gnu++98
+test_moveable_SOURCES = test_moveable.cc
 
 TESTS = $(check_PROGRAMS)

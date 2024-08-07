@@ -1,6 +1,7 @@
 #include <ostream>
 
 #include "rinex/rinex_file_type.hh"
+#include "misc/utils.hh"
 
 namespace gnssxx {
 namespace rinex {
@@ -15,17 +16,11 @@ rinex_file_type from_file_type_indicator(char c) {
     return UNKNOWN;
 }
 
-std::ostream& operator<<(std::ostream &out, rinex_file_type const &value) {
-    char const *name = "UNKNOWN";
-    switch (value) {
-        case NAVMSG: name = "NAVMSG"; break;
-        case METEOR: name = "METEOR"; break;
-        case OBSERV: name = "OBSERV"; break;
-        default: break;
-    }
-    out << name << "(" << static_cast<int>(value) << ")";
-    return out;
-}
+ENUM_OS_BEGIN(rinex_file_type);
+ENUM_OS_ITEM(NAVMSG);
+ENUM_OS_ITEM(METEOR);
+ENUM_OS_ITEM(OBSERV);
+ENUM_OS_END(rinex_file_type);
 
 } // namespace rinex
 } // namespace gnssxx

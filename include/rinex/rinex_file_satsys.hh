@@ -17,7 +17,8 @@ enum rinex_file_satsys {
     TRANSIT,
 };
 
-rinex_file_satsys from_file_satsys_indicator(char c);
+rinex_file_satsys rinex_file_satsys_of_indicator(char c);
+char rinex_file_satsys_to_indicator(rinex_file_satsys);
 
 std::ostream& operator<<(std::ostream&, rinex_file_satsys const&);
 

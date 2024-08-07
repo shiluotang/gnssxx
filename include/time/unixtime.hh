@@ -1,5 +1,5 @@
-#ifndef GNSSXX_TIME_UNIXTIME_HPP_INCLUDED
-#define GNSSXX_TIME_UNIXTIME_HPP_INCLUDED
+#ifndef GNSSXX_TIME_UNIXTIME_HH_INCLUDED
+#define GNSSXX_TIME_UNIXTIME_HH_INCLUDED
 
 #include <ctime>
 #include <ostream>
@@ -9,9 +9,6 @@ namespace time {
 
 /**
  * The seconds since unix epoch 1970-01-01 00:00:00 GMT.
- *
- * @author shengquangang2015@163.com
- * @version Sun Sep 17 00:31:18 CST 2017
  */
 class unixtime {
     public:
@@ -50,4 +47,4 @@ class unixtime {
 } // namespace time
 } // namespace gnssxx
 
-#endif // GNSSXX_TIME_UNIXTIME_HPP_INCLUDED
+#endif // GNSSXX_TIME_UNIXTIME_HH_INCLUDED

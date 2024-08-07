@@ -9,8 +9,8 @@ namespace rinex {
 
 class rinex_file_version {
     public:
-        rinex_file_version(int major, int minor);
         rinex_file_version();
+        rinex_file_version(int major, int minor);
 
         int get_major() const;
         int get_minor() const;
@@ -19,6 +19,7 @@ class rinex_file_version {
         void set_minor(int);
 
         void print(std::ostream& out) const;
+        int compare(rinex_file_version const &other) const;
 
         bool operator<(rinex_file_version const &other) const;
         bool operator==(rinex_file_version const &other) const;
@@ -28,7 +29,7 @@ class rinex_file_version {
         int _M_minor;
 };
 
-std::ostream& operator<<(std::ostream &os, rinex_file_version const &v);
+std::ostream& operator<<(std::ostream&, rinex_file_version const&);
 
 } // namespace rinex
 } // namespace gnssxx

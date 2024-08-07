@@ -1,5 +1,7 @@
 #include <iomanip>
 #include <ostream>
+#include <sstream>
+
 #include "rinex/rinex_file_version.hh"
 
 namespace gnssxx {
@@ -33,21 +35,29 @@ void rinex_file_version::set_minor(int value) {
     _M_minor = value;
 }
 
-void rinex_file_version::print(std::ostream& out) const {
-    out
+void rinex_file_version::print(std::ostream &out) const {
+    // prevent stream state polution
+    std::ostringstream oss;
+    oss
         << _M_major
         << "."
         << std::setw(2) << std::setfill('0') << _M_minor;
+    out << oss.rdbuf();
+}
+
+int rinex_file_version::compare(rinex_file_version const &other) const {
+    int c = _M_major - other._M_major;
+    if (c != 0)
+        return c;
+    return _M_minor - other._M_minor;
 }
 
 bool rinex_file_version::operator<(rinex_file_version const &other) const {
-    return _M_major < other._M_major
-        || (_M_major == other._M_major && _M_minor < other._M_minor);
+    return this->compare(other) < 0;
 }
 
 bool rinex_file_version::operator==(rinex_file_version const &other) const {
-    return _M_major == other._M_major
-        && _M_minor == other._M_minor;
+    return this->compare(other) == 0;
 }
 
 std::ostream& operator<<(std::ostream &os, rinex_file_version const &v) {

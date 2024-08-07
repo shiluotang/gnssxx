@@ -5,7 +5,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "time/timezone.hpp"
+#include "time/timezone.hh"
 
 namespace {
 

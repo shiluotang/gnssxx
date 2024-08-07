@@ -1,10 +1,23 @@
-#ifndef GNSS_MISC_UTILS_HPP_INCLUDED
-#define GNSS_MISC_UTILS_HPP_INCLUDED
+#ifndef GNSS_MISC_UTILS_HH_INCLUDED
+#define GNSS_MISC_UTILS_HH_INCLUDED
 
 #include <iomanip>
 #include <ios>
 #include <string>
 #include <locale>
+
+#define ENUM_OS_BEGIN(type) \
+    std::ostream& operator<<(std::ostream &out, type const &value) { \
+        char const *sname = "UNKNOWN"; \
+        switch (value) {
+#define ENUM_OS_ITEM(name) \
+            case name: sname = #name; break;
+#define ENUM_OS_END(x) \
+            default: break; \
+        } \
+        out << sname << "(" << static_cast<int>(value) << ")"; \
+        return out; \
+    }
 
 namespace gnssxx {
 namespace misc {
@@ -53,7 +66,17 @@ DestType pointer_cast(SourceType src) {
             static_cast<void*>(&src));
 }
 
+std::string& replace_all(
+        std::string &s,
+        std::string const &lookup,
+        std::string const &replacement);
+
+std::string replace_all(
+        std::string const &s,
+        std::string const &lookup,
+        std::string const &replacement);
+
 } // namespace misc
 } // namespace gnssxx
 
-#endif // GNSS_MISC_UTILS_HPP_INCLUDED
+#endif // GNSS_MISC_UTILS_HH_INCLUDED

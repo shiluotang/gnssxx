@@ -1,11 +1,11 @@
 nobase_pkginclude_HEADERS = \
-gnssxx.hpp \
-misc/bytes.hpp \
-misc/decimal.hpp \
-misc/utils.hpp \
-time/gpst.hpp \
-time/jd.hpp \
-time/tai.hpp \
-time/timezone.hpp \
-time/unixtime.hpp \
-time/utc.hpp
+gnssxx.hh \
+misc/bytes.hh \
+misc/decimal.hh \
+misc/utils.hh \
+time/gpst.hh \
+time/jd.hh \
+time/tai.hh \
+time/timezone.hh \
+time/unixtime.hh \
+time/utc.hh

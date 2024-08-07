@@ -1,7 +1,0 @@
-#ifndef GNSSXX_TIME_UTC_HPP_INCLUDED
-#define GNSSXX_TIME_UTC_HPP_INCLUDED
-
-namespace gnssxx {
-}
-
-#endif // GNSSXX_TIME_UTC_HPP_INCLUDED

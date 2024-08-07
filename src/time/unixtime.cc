@@ -7,10 +7,10 @@
 #include <string>
 #include <cmath>
 
-#include "misc/decimal.hpp"
-#include "misc/utils.hpp"
+#include "misc/decimal.hh"
+#include "misc/utils.hh"
 
-#include "time/unixtime.hpp"
+#include "time/unixtime.hh"
 
 namespace {
 
