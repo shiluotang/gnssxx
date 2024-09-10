@@ -34,5 +34,10 @@ void rinex_skip_field::print(std::ostream &out) const {
     out << std::string(this->get_maxwidth(), ' ');
 }
 
+std::string
+rinex_skip_field::X() const {
+    return this->get_rawstr();
+}
+
 } // namespace rinex
 } // namespace gnssxx

@@ -44,6 +44,22 @@ void rinex_field::set_rawstr(std::string const &value) {
     _M_rawstr = value;
 }
 
+std::string rinex_field::A() const {
+    return "";
+}
+
+double rinex_field::F() const {
+    return 0.0;
+}
+
+long rinex_field::I() const {
+    return 0L;
+}
+
+std::string rinex_field::X() const {
+    return "";
+}
+
 void rinex_field::scan(std::istream&) {
     // Do nothing in base class
 }

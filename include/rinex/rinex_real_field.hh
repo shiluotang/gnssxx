@@ -27,6 +27,9 @@ class rinex_real_field
 
         value_type value() const;
         void set_value(value_type const&);
+
+        virtual
+        double F() const;
     protected:
     private:
         value_type _M_value;

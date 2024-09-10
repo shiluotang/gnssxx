@@ -11,6 +11,8 @@ class rinex_file_version {
     public:
         rinex_file_version();
         rinex_file_version(int major, int minor);
+        explicit
+        rinex_file_version(double);
 
         int get_major() const;
         int get_minor() const;

@@ -12,6 +12,7 @@ enum rinex_file_satsys {
     GALILEO,
     QZSS,
     BDS,
+    IRNSS,
     SBAS,
     MIXED,
     TRANSIT,

@@ -20,6 +20,9 @@ class rinex_skip_field
         void scan(std::istream&);
         virtual
         void print(std::ostream&) const;
+
+        virtual
+        std::string X() const;
     protected:
     private:
 };

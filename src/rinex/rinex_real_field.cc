@@ -69,5 +69,10 @@ void rinex_real_field::set_value(
     _M_value = value;
 }
 
+double
+rinex_real_field::F() const {
+    return value();
+}
+
 } // namespace rinex
 } // namespace gnssxx

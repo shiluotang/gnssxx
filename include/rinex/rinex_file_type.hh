@@ -13,7 +13,8 @@ enum rinex_file_type {
     UNKNOWN
 };
 
-rinex_file_type from_file_type_indicator(char c);
+rinex_file_type rinex_file_type_of_indicator(char);
+char rinex_file_type_to_indicator(rinex_file_type);
 
 std::ostream& operator<<(std::ostream&, rinex_file_type const&);
 

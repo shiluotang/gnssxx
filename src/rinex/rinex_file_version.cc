@@ -1,6 +1,9 @@
+#include <cmath>
+
 #include <iomanip>
 #include <ostream>
 #include <sstream>
+#include <iostream>
 
 #include "rinex/rinex_file_version.hh"
 
@@ -11,6 +14,17 @@ rinex_file_version::rinex_file_version(int major, int minor)
     : _M_major(major)
     , _M_minor(minor)
 {
+}
+
+rinex_file_version::rinex_file_version(double v)
+    : _M_major(0)
+    , _M_minor(0)
+{
+    int ver = static_cast<int>(std::round(v * 100));
+    int vmajor = static_cast<int>(ver / 100);
+    int vminor = static_cast<int>(ver - vmajor * 100);
+    _M_major = vmajor;
+    _M_minor = vminor;
 }
 
 rinex_file_version::rinex_file_version()
@@ -42,7 +56,7 @@ void rinex_file_version::print(std::ostream &out) const {
         << _M_major
         << "."
         << std::setw(2) << std::setfill('0') << _M_minor;
-    out << oss.rdbuf();
+    out << oss.str();
 }
 
 int rinex_file_version::compare(rinex_file_version const &other) const {

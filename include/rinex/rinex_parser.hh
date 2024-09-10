@@ -15,8 +15,9 @@ class rinex_parser {
 
         void parse(std::istream&);
 
-        void parse_meta(std::string const&, rinex_parse_context&);
+        bool parse_metadata(std::string const&, rinex_metadata&);
     protected:
+        std::string pad_label(std::string const&);
     private:
 };
 

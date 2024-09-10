@@ -48,5 +48,10 @@ void rinex_string_field::value(
     _M_value = value;
 }
 
+std::string
+rinex_string_field::A() const {
+    return this->value();
+}
+
 } // namespace rinex
 } // namespace gnssxx

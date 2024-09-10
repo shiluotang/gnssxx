@@ -24,6 +24,10 @@ rinex/rinex_file_version.cc \
 rinex/rinex_header_parser.cc \
 rinex/rinex_header_parser_factory.cc \
 rinex/rinex_integer_field.cc \
+rinex/rinex_metadata.cc \
+rinex/rinex_parse_context.cc \
+rinex/rinex_parse_navmsg_context.cc \
+rinex/rinex_parse_obs_context.cc \
 rinex/rinex_parser.cc \
 rinex/rinex_parser_factory.cc \
 rinex/rinex_real_field.cc \

@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <ostream>
 
 #include "misc/utils.hh"
@@ -14,19 +15,21 @@ rinex_file_satsys rinex_file_satsys_of_indicator(char c) {
         case 'E' : return GALILEO;
         case 'J' : return QZSS;
         case 'C' : return BDS;
+        case 'I' : return IRNSS;
         case 'S' : return SBAS;
-        case 'T' : return TRANSIT;
         case 'M' : return MIXED;
+        case 'T' : return TRANSIT;
         default: break;
     }
     return MIXED;
 }
 
 char rinex_file_satsys_to_indicator(rinex_file_satsys satsys) {
-    static char INDICATORS[] = { "GREJCSTM" };
+    static char INDICATORS[] = { "GREJCISMT" };
     char c = 'M';
-    if (satsys < std::char_traits<char>::length(INDICATORS))
-        c = INDICATORS[satsys];
+    size_t idx = static_cast<size_t>(satsys);
+    if (idx < std::char_traits<char>::length(INDICATORS))
+        c = INDICATORS[idx];
     return c;
 }
 

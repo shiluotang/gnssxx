@@ -20,7 +20,8 @@ rinex_integer_field::rinex_integer_field(int maxwidth, char fillchar)
 rinex_integer_field::~rinex_integer_field() {
 }
 
-void rinex_integer_field::scan(std::istream &in) {
+void
+rinex_integer_field::scan(std::istream &in) {
     this->set_rawstr("");
     _M_value = value_type(0);
     std::string buffer(this->get_maxwidth(), 0);
@@ -38,7 +39,8 @@ void rinex_integer_field::scan(std::istream &in) {
     }
 }
 
-void rinex_integer_field::print(std::ostream &out) const {
+void
+rinex_integer_field::print(std::ostream &out) const {
     std::ostringstream oss;
     oss
         << std::setw(this->get_maxwidth())
@@ -52,9 +54,15 @@ rinex_integer_field::value() const {
     return _M_value;
 }
 
-void rinex_integer_field::set_value(
+void
+rinex_integer_field::set_value(
         value_type const &value) {
     _M_value = value;
+}
+
+long
+rinex_integer_field::I() const {
+    return this->value();
 }
 
 } // namespace rinex

@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cmath>
 
 #include <iomanip>
 #include <istream>
@@ -6,23 +7,15 @@
 #include <string>
 #include <memory>
 #include <iterator>
+#include <typeinfo>
+#include <type_traits>
 
 #include <gtest/gtest.h>
 
 #include "misc/istream_line_iterator.hh"
-#include "rinex/rinex_field.hh"
-#include "rinex/rinex_integer_field.hh"
-#include "rinex/rinex_real_field.hh"
-#include "rinex/rinex_skip_field.hh"
-#include "rinex/rinex_string_field.hh"
-#include "rinex/rinex_compound_field.hh"
-#include "rinex/rinex_compound_field_builder.hh"
+#include "rinex/rinex_parser.hh"
 
 namespace {
-
-template <typename T>
-void formatted(std::string const &fmt, T &value) {
-}
 
 } // namespace
 
@@ -39,49 +32,16 @@ TEST(arch_test, lines_iterator) {
     ASSERT_EQ(1519, lines);
 }
 
-TEST(arch_test, rinex_field) {
-    using gnssxx::rinex::rinex_field;
-    using gnssxx::rinex::rinex_real_field;
-    using gnssxx::rinex::rinex_integer_field;
-    using gnssxx::rinex::rinex_skip_field;
-    using gnssxx::rinex::rinex_string_field;
-    using gnssxx::rinex::rinex_compound_field;
-    using gnssxx::rinex::rinex_compound_field_builder;
-
-    std::string s = "20240727 2.11e+00  GPS";
-    // std::string s = "20240727";
-
-    rinex_compound_field cf = rinex_compound_field_builder()
-        .I(4).I(2).I(2)
-        .X(1).F(8, 2, "E")
-        .X(1).A(4)
-        .build();
-
-    std::istringstream iss(s);
-    iss >> cf;
-    std::cout << s << std::endl;
-    std::cout << cf << std::endl;
-    /// F, I, A, X
-    /// fieldf
-    /// fieldi
-    /// fielda
-    /// fieldx
-    ASSERT_EQ(std::dynamic_pointer_cast<rinex_integer_field>(cf[0])->value(), 2024);
-    ASSERT_EQ(std::dynamic_pointer_cast<rinex_integer_field>(cf[1])->value(), 7);
-    ASSERT_EQ(std::dynamic_pointer_cast<rinex_integer_field>(cf[2])->value(), 27);
-    ASSERT_EQ(std::dynamic_pointer_cast<rinex_real_field>(cf[4])->value(), 2.11);
-    ASSERT_EQ(std::dynamic_pointer_cast<rinex_string_field>(cf[6])->value(), " GPS");
+TEST(arch_test, rinex_parser) {
+    gnssxx::rinex::rinex_parser parser;
+    std::ifstream infile("../../tests/data/zimm0590.24n");
+    if (!infile)
+        GTEST_SKIP() << "file failed to be opened for read!";
+    gnssxx::misc::istream_line_iterator it(&infile);
+    gnssxx::rinex::rinex_metadata metadata;
+    ASSERT_TRUE(parser.parse_metadata(*it++, metadata));
+    ASSERT_EQ(gnssxx::rinex::rinex_file_version(2.11), metadata.get_version());
+    ASSERT_EQ(gnssxx::rinex::NAVMSG, metadata.get_type());
+    ASSERT_EQ(gnssxx::rinex::GPS, metadata.get_satsys());
 }
 
-TEST(arch_test, istream_ops) {
-    std::istringstream iss;
-    iss.str("    1.2   3.14159265398 ABC");
-    double d;
-    iss >> d;
-    std::cout << d << std::endl;
-    iss >> d;
-    std::cout << d << std::endl;
-    std::string s;
-    iss >> s;
-    std::cout << s << std::endl;
-}

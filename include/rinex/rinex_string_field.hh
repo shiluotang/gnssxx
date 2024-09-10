@@ -25,6 +25,9 @@ class rinex_string_field
 
         value_type value() const;
         void value(value_type const&);
+
+        virtual
+        std::string A() const;
     protected:
     private:
         value_type _M_value;

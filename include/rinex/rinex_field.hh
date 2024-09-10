@@ -27,6 +27,18 @@ class rinex_field {
         void set_rawstr(std::string const&);
 
         virtual
+        std::string A() const;
+
+        virtual
+        double F() const;
+
+        virtual
+        long I() const;
+
+        virtual
+        std::string X() const;
+
+        virtual
         void scan(std::istream&) = 0;
 
         virtual
