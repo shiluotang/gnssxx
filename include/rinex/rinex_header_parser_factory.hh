@@ -22,7 +22,7 @@ class rinex_header_parser_factory {
         static
         std::shared_ptr<rinex_header_parser_factory> instance();
         static
-        std::string padding_label(std::string const&);
+        std::string padding_label(std::string const&, int = 20);
     protected:
     private:
         map_type _M_parsers;

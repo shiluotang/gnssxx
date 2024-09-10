@@ -29,7 +29,6 @@ rinex_header_parser_factory::~rinex_header_parser_factory() {
 
 rinex_header_parser_factory::parser_ptr
 rinex_header_parser_factory::get_parser(std::string const &label) {
-    // label convert to 20 characters length
     std::string plabel = rinex_header_parser_factory::padding_label(label);
     map_type::const_iterator it = _M_parsers.find(plabel);
     if (it == _M_parsers.end())
@@ -40,7 +39,6 @@ rinex_header_parser_factory::get_parser(std::string const &label) {
 void rinex_header_parser_factory::set_parser(
         std::string const &label,
         parser_ptr parser) {
-    // label convert to 20 characters length
     std::string plabel = rinex_header_parser_factory::padding_label(label);
     if (parser)
         _M_parsers[plabel] = parser;
@@ -49,9 +47,11 @@ void rinex_header_parser_factory::set_parser(
 }
 
 std::string
-rinex_header_parser_factory::padding_label(std::string const& label) {
+rinex_header_parser_factory::padding_label(
+        std::string const &label,
+        int padlen) {
     // position [60, 79]
-    std::vector<char> s(20, ' ');
+    std::vector<char> s(padlen, ' ');
     label.copy(&s[0], s.size(), 0);
     return std::string(s.begin(), s.end());
 }

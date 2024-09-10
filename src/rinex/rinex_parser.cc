@@ -31,10 +31,10 @@ void rinex_parser::parse(std::istream &in) {
     rinex_parse_context ctx;
     istream_line_iterator it(&in);
     istream_line_iterator eos;
-    if (it != eos) {
-        if (!this->parse_metadata(*it++, ctx.get_metadata())) {
-            // TODO handle failure
-        }
+    if (it == eos)
+        return;
+    if (!this->parse_metadata(*it++, ctx.get_metadata())) {
+        // TODO handle failure
     }
     for (; it != eos; ++it) {
         // TODO parse data.
