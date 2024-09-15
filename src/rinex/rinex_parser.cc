@@ -54,6 +54,7 @@ bool rinex_parser::parse_metadata(
         .A(1).X(19)
         .build();
     std::istringstream iss(line);
+    // FIXME handle parse failure
     iss >> f;
     metadata.set_version(rinex_file_version(f[0]->F()));
     metadata.set_type(rinex_file_type_of_indicator(f[2]->A()[0]));

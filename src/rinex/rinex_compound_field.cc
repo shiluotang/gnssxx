@@ -24,7 +24,7 @@ rinex_compound_field::operator[](size_t n) const {
 }
 
 rinex_compound_field::rinex_compound_field(
-        std::vector<field_ptr> fields)
+        std::vector<field_ptr> const &fields)
     : _M_fields(fields)
 {
 }

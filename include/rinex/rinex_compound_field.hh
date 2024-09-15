@@ -21,7 +21,8 @@ class rinex_compound_field {
 
         field_ptr const& operator[](size_t n) const;
     protected:
-        rinex_compound_field(std::vector<field_ptr> fields);
+        explicit
+        rinex_compound_field(std::vector<field_ptr> const &fields);
     private:
         std::vector<field_ptr> _M_fields;
         friend class rinex_compound_field_builder;
